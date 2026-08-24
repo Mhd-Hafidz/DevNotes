@@ -114,10 +114,10 @@
                 </button>
               </div>
               <div class="pw-checklist">
-                <div class="it" id="su-pw-check-len"><span class="dot">&#10003;</span> At least 8 characters</div>
-                <div class="it" id="su-pw-check-upper"><span class="dot">&#10003;</span> One uppercase letter</div>
-                <div class="it" id="su-pw-check-num"><span class="dot">&#10003;</span> One number</div>
-                <div class="it" id="su-pw-check-special"><span class="dot">&#10003;</span> One special character
+                <div class="it" id="su-pw-check-len"><span class="dot"><span class="mdi mdi-check"></span></span> At least 8 characters</div>
+                <div class="it" id="su-pw-check-upper"><span class="dot"><span class="mdi mdi-check"></span></span> One uppercase letter</div>
+                <div class="it" id="su-pw-check-num"><span class="dot"><span class="mdi mdi-check"></span></span> One number</div>
+                <div class="it" id="su-pw-check-special"><span class="dot"><span class="mdi mdi-check"></span></span> One special character
                 </div>
               </div>
             </div>
@@ -195,10 +195,10 @@
                 </button>
               </div>
               <div class="pw-checklist">
-                <div class="it" id="rs-pw-check-len"><span class="dot">&#10003;</span> At least 8 characters</div>
-                <div class="it" id="rs-pw-check-upper"><span class="dot">&#10003;</span> One uppercase letter</div>
-                <div class="it" id="rs-pw-check-num"><span class="dot">&#10003;</span> One number</div>
-                <div class="it" id="rs-pw-check-special"><span class="dot">&#10003;</span> One special character
+                <div class="it" id="rs-pw-check-len"><span class="dot"><span class="mdi mdi-check"></span></span> At least 8 characters</div>
+                <div class="it" id="rs-pw-check-upper"><span class="dot"><span class="mdi mdi-check"></span></span> One uppercase letter</div>
+                <div class="it" id="rs-pw-check-num"><span class="dot"><span class="mdi mdi-check"></span></span> One number</div>
+                <div class="it" id="rs-pw-check-special"><span class="dot"><span class="mdi mdi-check"></span></span> One special character
                 </div>
               </div>
             </div>
@@ -347,9 +347,9 @@
             </div>
           </div>
           <div class="topbar-user" data-nav="settings">
-            <div class="avatar" id="tb-avatar">&#128100;</div>
+            <div class="avatar" id="tb-avatar"><span class="mdi mdi-account"></span></div>
             <span id="tb-username" style="font-weight:700;font-size:13.5px;">Hafidz Sya'bani</span>
-            <span style="color:var(--text-muted);">&#9662;</span>
+            <span style="color:var(--text-muted);"><span class="mdi mdi-chevron-down"></span></span>
           </div>
         </div>
       </div>
@@ -520,8 +520,8 @@
             <div>
               <div class="card" style="padding:20px;">
                 <div class="cal-toolbar">
-                  <button class="btn btn-icon" id="cal-prev">&#8249;</button>
-                  <button class="btn btn-icon" id="cal-next">&#8250;</button>
+                  <button class="btn btn-icon" id="cal-prev"><span class="mdi mdi-chevron-left"></span></button>
+                  <button class="btn btn-icon" id="cal-next"><span class="mdi mdi-chevron-right"></span></button>
                   <button class="btn" id="cal-today">Today</button>
                   <div class="cal-title" id="cal-title">Juli 2026</div>
                   <div class="spacer"></div>
@@ -533,9 +533,9 @@
             <div>
               <div class="card panel" style="margin-bottom:18px;">
                 <div class="mini-cal-head">
-                  <button class="icon-btn" id="mini-cal-prev" style="width:28px;height:28px;">&#8249;</button>
+                  <button class="icon-btn" id="mini-cal-prev" style="width:28px;height:28px;"><span class="mdi mdi-chevron-left"></span></button>
                   <span id="mini-cal-title">Juli 2026</span>
-                  <button class="icon-btn" id="mini-cal-next" style="width:28px;height:28px;">&#8250;</button>
+                  <button class="icon-btn" id="mini-cal-next" style="width:28px;height:28px;"><span class="mdi mdi-chevron-right"></span></button>
                 </div>
                 <div class="mini-cal-grid" id="mini-cal-grid"></div>
               </div>
@@ -915,7 +915,7 @@
               </p>
 
               <button type="button" class="btn" id="avatar-upload-btn">
-                ↑ Upload Photo
+                <span class="mdi mdi-upload"></span> Upload Photo
               </button>
               <div class="form-grid-2">
                 <div class="field-group"><label class="field-label">Full Name</label><input class="input"
@@ -944,7 +944,7 @@
                     id="acc-last-login">-</span>
                 </div>
                 <div class="info-row"><span class="k"><span class="mdi mdi-account"></span> Account
-                    type</span><span id="acc-type">Premium Account</span></div>
+                    type</span><span id="acc-type">Premium Plan</span></div>
               </div>
               <div class="card settings-panel" style="margin-bottom:18px;">
                 <h3>Storage Usage</h3>
@@ -958,7 +958,7 @@
               <div class="card settings-panel">
                 <h3>Danger Zone</h3>
                 <p class="sub">Tindakan ini bersifat permanen.</p>
-                <button class="btn btn-danger btn-block" id="logout-btn">&#8617; Logout</button>
+                <button class="btn btn-danger btn-block" id="logout-btn"><span class="mdi mdi-logout"></span> Logout</button>
               </div>
             </div>
           </div>
@@ -1047,7 +1047,7 @@
               <label class="field-label">Notification Channels</label>
               <div class="pref-row">
                 <div class="pref-left">
-                  <div class="pref-ic" style="background:var(--blue-soft);">&#9993;</div>
+                  <div class="pref-ic" style="background:var(--blue-soft);"><span class="mdi mdi-email-outline"></span></div>
                   <div>
                     <div class="pref-t">Email Notifications</div>
                     <div class="pref-s">Terima notifikasi via email</div>
@@ -1113,7 +1113,7 @@
           <label class="field-label">Design Image</label>
           <div class="img-drop" id="proj-img-drop">
             <div id="proj-img-preview-wrap">
-              <div style="font-size:26px;">&#128247;</div>
+              <div style="font-size:26px;"><span class="mdi mdi-camera"></span></div>
               <div class="hint">Klik untuk upload gambar desain (JPG/PNG)</div>
             </div>
           </div>
@@ -1178,7 +1178,7 @@
           <label class="field-label">Preview Gambar</label>
           <div class="img-drop" id="vault-img-drop">
             <div id="vault-img-preview-wrap">
-              <div style="font-size:26px;">&#128247;</div>
+              <div style="font-size:26px;"><span class="mdi mdi-camera"></span></div>
               <div class="hint">Klik untuk upload gambar (opsional)</div>
             </div>
           </div>
@@ -1250,7 +1250,7 @@
 
         </div>
 
-        <button class="btn btn-primary btn-block hidden" id="vaultdetail-link-btn">Buka Tautan &#8599;</button>
+        <button class="btn btn-primary btn-block hidden" id="vaultdetail-link-btn">Buka Tautan <span class="mdi mdi-open-in-new"></span></button>
 
       </div>
 
