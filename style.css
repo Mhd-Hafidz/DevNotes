@@ -1146,6 +1146,10 @@ body.theme-dark .auth-blob {
     overflow: hidden;
 }
 
+.avatar .mdi {
+    font-size: 19px;
+}
+
 .avatar img {
     width: 100%;
     height: 100%;
@@ -1776,14 +1780,11 @@ body.theme-dark .stat-icon {
         max-width: none;
     }
 
-    /* Kartu "Akun Demo" di topbar & di bawah sidebar cuma perlu tampil saat mobile.
-       Di desktop, Settings tetap bisa diakses lewat item menu "Settings" biasa. */
+    /* Kartu "Akun Demo" di topbar cuma perlu tampil saat mobile — kartu yang sama
+       di bagian bawah sidebar sudah dihilangkan total (baik desktop maupun mobile).
+       Settings tetap bisa diakses lewat item menu "Settings" biasa. */
     .topbar-user {
         display: flex;
-    }
-
-    .sidebar-bottom {
-        display: block;
     }
 
     /* Panel notifikasi sebelumnya nempel "right:0" ke tombol bell, padahal di kanan
@@ -1986,6 +1987,11 @@ body.theme-dark .status-chip {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    color: var(--text-muted);
+}
+
+.activity-icon .mdi {
+    font-size: 17px;
 }
 
 body.theme-dark .activity-icon {
@@ -2783,6 +2789,14 @@ body.theme-dark .pager button.active {
     overflow: hidden;
     background: var(--border);
     border: 2px solid var(--border-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+}
+
+.avatar-lg .mdi {
+    font-size: 42px;
 }
 
 .avatar-lg img {
@@ -2813,6 +2827,10 @@ body.theme-dark .pager button.active {
 
     cursor: pointer;
     z-index: 10;
+}
+
+.avatar-edit-btn .mdi {
+    font-size: 15px;
 }
 
 .toggle {
