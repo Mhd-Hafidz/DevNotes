@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevNotes - Project Manager</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Identity Services (dipakai fitur "Continue with Google") -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+
+<body>
+
+  <!-- ============== AUTH: SIGN IN ============== -->
+  <div id="view-auth-signin">
+    <div class="auth-wrap">
+      <div class="auth-shell">
+        <div class="auth-left" data-auth-illustration></div>
+        <div class="auth-right">
+          <div class="auth-card">
+            <h2>Welcome Back</h2>
+            <p class="sub">Sign in to continue to DevNotes</p>
+
+            <div class="field-group">
+              <label class="field-label">Email</label>
+              <div class="input-icon-wrap">
+                <span class="icon-left mdi mdi-email-outline"></span>
+                <input class="input" type="email" id="si-email" placeholder="Enter your email" autocomplete="username">
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Password</label>
+              <div class="input-icon-wrap has-toggle">
+                <span class="icon-left mdi mdi-lock-outline"></span>
+                <input class="input" type="password" id="si-password" placeholder="Enter your password"
+                  autocomplete="current-password">
+                <button type="button" class="icon-right" id="si-password-eye" aria-label="Tampilkan password">
+                  <span class="mdi mdi-eye-outline"></span>
+                </button>
+              </div>
+            </div>
+
+            <div class="auth-row-between">
+              <label class="checkbox-row"><input type="checkbox" id="si-remember"> Remember me</label>
+              <span class="link" data-switch="reset">Forgot password?</span>
+            </div>
+
+            <button class="btn btn-primary btn-block" id="si-submit-btn">Sign In</button>
+
+            <div class="auth-divider">or continue with</div>
+
+            <button type="button" class="btn google-btn" id="si-google-btn">
+              <svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#FFC107"
+                  d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.6 5.1 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.5-.4-3.5z" />
+                <path fill="#FF3D00"
+                  d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34.6 5.1 29.6 3 24 3 16.3 3 9.7 7.4 6.3 14.7z" />
+                <path fill="#4CAF50"
+                  d="M24 45c5.2 0 10-2 13.5-5.2l-6.2-5.2C29.3 36.7 26.8 37.5 24 37.5c-5.3 0-9.7-3.4-11.3-8.1l-6.5 5C9.6 40.6 16.2 45 24 45z" />
+                <path fill="#1976D2"
+                  d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.2 5.7l6.2 5.2C39.9 36.5 43 30.9 43 24c0-1.4-.1-2.5-.4-3.5z" />
+              </svg>
+              Continue with Google
+            </button>
+
+            <div class="auth-switch">Don't have an account? <span class="link" data-switch="signup">Sign up</span>
+            </div>
+
+            <p class="auth-demo-hint">Demo account: demo123@gmail.com / demo123</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== AUTH: SIGN UP ============== -->
+  <div id="view-auth-signup" class="hidden">
+    <div class="auth-wrap">
+      <div class="auth-shell">
+        <div class="auth-left" data-auth-illustration></div>
+        <div class="auth-right">
+          <div class="auth-card">
+            <h2>Create Your Account</h2>
+            <p class="sub">Sign up to get started with DevNotes</p>
+
+            <div class="field-group">
+              <label class="field-label">Full Name</label>
+              <div class="input-icon-wrap">
+                <span class="icon-left mdi mdi-account-outline"></span>
+                <input class="input" type="text" id="su-fullname" placeholder="Enter your full name"
+                  autocomplete="name">
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Email</label>
+              <div class="input-icon-wrap">
+                <span class="icon-left mdi mdi-email-outline"></span>
+                <input class="input" type="email" id="su-email" placeholder="Enter your email" autocomplete="username">
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Password</label>
+              <div class="input-icon-wrap has-toggle">
+                <span class="icon-left mdi mdi-lock-outline"></span>
+                <input class="input" type="password" id="su-password" placeholder="Create a password"
+                  autocomplete="new-password">
+                <button type="button" class="icon-right" id="su-password-eye" aria-label="Tampilkan password">
+                  <span class="mdi mdi-eye-outline"></span>
+                </button>
+              </div>
+              <div class="pw-checklist">
+                <div class="it" id="su-pw-check-len"><span class="dot">&#10003;</span> At least 8 characters</div>
+                <div class="it" id="su-pw-check-upper"><span class="dot">&#10003;</span> One uppercase letter</div>
+                <div class="it" id="su-pw-check-num"><span class="dot">&#10003;</span> One number</div>
+                <div class="it" id="su-pw-check-special"><span class="dot">&#10003;</span> One special character
+                </div>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Confirm Password</label>
+              <div class="input-icon-wrap has-toggle">
+                <span class="icon-left mdi mdi-lock-outline"></span>
+                <input class="input" type="password" id="su-confirm" placeholder="Confirm your password"
+                  autocomplete="new-password">
+                <button type="button" class="icon-right" id="su-confirm-eye" aria-label="Tampilkan password">
+                  <span class="mdi mdi-eye-outline"></span>
+                </button>
+              </div>
+            </div>
+
+            <label class="checkbox-row" style="align-items:flex-start;margin-bottom:20px;">
+              <input type="checkbox" id="su-tos" style="margin-top:2px;">
+              <span>I agree to the <strong>Terms of Service</strong> and <strong>Privacy Policy</strong></span>
+            </label>
+
+            <button class="btn btn-primary btn-block" id="su-submit-btn">Sign Up</button>
+
+            <div class="auth-divider">or continue with</div>
+
+            <button type="button" class="btn google-btn" id="su-google-btn">
+              <svg width="18" height="18" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#FFC107"
+                  d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.6 5.1 29.6 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.5-.4-3.5z" />
+                <path fill="#FF3D00"
+                  d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34.6 5.1 29.6 3 24 3 16.3 3 9.7 7.4 6.3 14.7z" />
+                <path fill="#4CAF50"
+                  d="M24 45c5.2 0 10-2 13.5-5.2l-6.2-5.2C29.3 36.7 26.8 37.5 24 37.5c-5.3 0-9.7-3.4-11.3-8.1l-6.5 5C9.6 40.6 16.2 45 24 45z" />
+                <path fill="#1976D2"
+                  d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.2 5.7l6.2 5.2C39.9 36.5 43 30.9 43 24c0-1.4-.1-2.5-.4-3.5z" />
+              </svg>
+              Continue with Google
+            </button>
+
+            <div class="auth-switch">Already have an account? <span class="link" data-switch="signin">Sign
+                in</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== AUTH: RESET PASSWORD ============== -->
+  <div id="view-auth-reset" class="hidden">
+    <div class="auth-wrap">
+      <div class="auth-shell">
+        <div class="auth-left" data-auth-illustration></div>
+        <div class="auth-right">
+          <div class="auth-card">
+            <h2>Reset Password</h2>
+            <p class="sub">Enter your registered email and set a new password</p>
+
+            <div class="field-group">
+              <label class="field-label">Email</label>
+              <div class="input-icon-wrap">
+                <span class="icon-left mdi mdi-email-outline"></span>
+                <input class="input" type="email" id="rs-email" placeholder="Enter your registered email"
+                  autocomplete="username">
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">New Password</label>
+              <div class="input-icon-wrap has-toggle">
+                <span class="icon-left mdi mdi-lock-outline"></span>
+                <input class="input" type="password" id="rs-password" placeholder="Create a new password"
+                  autocomplete="new-password">
+                <button type="button" class="icon-right" id="rs-password-eye" aria-label="Tampilkan password">
+                  <span class="mdi mdi-eye-outline"></span>
+                </button>
+              </div>
+              <div class="pw-checklist">
+                <div class="it" id="rs-pw-check-len"><span class="dot">&#10003;</span> At least 8 characters</div>
+                <div class="it" id="rs-pw-check-upper"><span class="dot">&#10003;</span> One uppercase letter</div>
+                <div class="it" id="rs-pw-check-num"><span class="dot">&#10003;</span> One number</div>
+                <div class="it" id="rs-pw-check-special"><span class="dot">&#10003;</span> One special character
+                </div>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Confirm New Password</label>
+              <div class="input-icon-wrap has-toggle">
+                <span class="icon-left mdi mdi-lock-outline"></span>
+                <input class="input" type="password" id="rs-confirm" placeholder="Confirm your new password"
+                  autocomplete="new-password">
+                <button type="button" class="icon-right" id="rs-confirm-eye" aria-label="Tampilkan password">
+                  <span class="mdi mdi-eye-outline"></span>
+                </button>
+              </div>
+            </div>
+
+            <button class="btn btn-primary btn-block" id="rs-submit-btn">Reset Password</button>
+
+            <div class="auth-switch">Remember your password? <span class="link" data-switch="signin">Back to Sign
+                In</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== MAIN APP ============== -->
+  <div id="view-app" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <div class="brand" data-nav="dashboard">
+          <div class="cube brand-logo">
+            <span class="mdi mdi-folder-outline brand-logo-folder"></span>
+            <span class="mdi mdi-code-tags brand-logo-code"></span>
+          </div>
+          <div>
+            <div class="brand-title">DevNotes</div>
+            <div class="brand-sub">Project Manager</div>
+          </div>
+        </div>
+        <nav>
+          <div class="nav-item" data-nav="dashboard">
+            <span class="mdi mdi-home-outline"></span>
+            Dashboard
+          </div>
+          <div class="nav-item" data-nav="projects">
+            <span class="mdi mdi-folder-outline"></span>
+            Projects
+          </div>
+          <div class="nav-item" data-nav="calendar">
+            <span class="mdi mdi-calendar-blank"></span>
+            Calendar
+          </div>
+          <div class="nav-item" data-nav="milestones">
+            <span class="mdi mdi-bullseye-arrow"></span>
+            Milestones
+          </div>
+          <div class="nav-item" data-nav="files">
+            <span class="mdi mdi-file-outline"></span>
+            Files
+          </div>
+          <div class="nav-item" data-nav="assets">
+            <span class="mdi mdi-package-variant-closed"></span>
+            Assets
+          </div>
+          <div class="nav-item" data-nav="resources">
+            <span class="mdi mdi-book-open-page-variant-outline"></span>
+            Resources
+          </div>
+          <div class="nav-item" data-nav="bookmarks">
+            <span class="mdi mdi-bookmark-multiple-outline"></span>
+            Bookmarks
+          </div>
+          <div class="nav-item" data-nav="repository">
+            <span class="mdi mdi-database-outline"></span>
+            Repository
+          </div>
+          <div class="nav-item" data-nav="settings">
+            <span class="mdi mdi-cog-outline"></span>
+            Settings
+          </div>
+        </nav>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="user-card" data-nav="settings">
+          <div class="avatar" id="sb-avatar"></div>
+          <div style="min-width:0;">
+            <div class="user-name" id="sb-username">Hafidz Sya'bani</div>
+            <div class="user-role" id="sb-userrole">Project Manager</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <div class="main-col">
+      <div class="topbar">
+        <button class="hamburger-btn" id="hamburger-btn" type="button" aria-label="Buka menu" aria-expanded="false">
+          <span class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+        <div class="search-box">
+          <span class="icon">
+            <span class="mdi mdi-magnify"></span>
+          </span>
+          <input type="text" id="global-search" placeholder="Search project, milestone, file...">
+          <div class="global-search-results hidden" id="global-search-results"></div>
+        </div>
+        <div class="topbar-right">
+          <button class="theme-toggle-btn" id="theme-toggle-btn" type="button" title="Ganti tema"
+            aria-label="Ganti tema terang/gelap">
+            <span class="icon-sun">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4" />
+                <path
+                  d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+              </svg>
+            </span>
+            <span class="icon-moon">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+              </svg>
+            </span>
+          </button>
+          <div class="notif-wrap" id="notif-wrap">
+            <button class="bell-btn" id="bell-btn">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+              </svg>
+              <span class="bell-dot hidden" id="bell-count">0</span>
+            </button>
+            <div class="notif-panel hidden" id="notif-panel">
+              <div class="notif-panel-head">
+                <h4>Notifikasi</h4>
+                <span class="link-small" id="notif-markall">Tandai semua dibaca</span>
+              </div>
+              <div class="notif-panel-list" id="notif-panel-list"></div>
+            </div>
+          </div>
+          <div class="topbar-user" data-nav="settings">
+            <div class="avatar" id="tb-avatar">&#128100;</div>
+            <span id="tb-username" style="font-weight:700;font-size:13.5px;">Hafidz Sya'bani</span>
+            <span style="color:var(--text-muted);">&#9662;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+
+        <!-- ============ DASHBOARD ============ -->
+        <section class="view" id="view-dashboard">
+          <div class="page-header">
+            <div>
+              <h1 id="dash-greeting">
+                Good Morning,
+                <span id="dash-name">Hafidz Sya'bani</span>
+                <span class="mdi mdi-hand-wave-outline"></span>
+              </h1>
+
+              <p>Let's make great things happen today!</p>
+            </div>
+          </div>
+
+          <div class="stat-grid">
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon">
+                  <span class="mdi mdi-folder-multiple-outline"></span>
+                </div>
+              </div>
+              <div class="stat-value" id="stat-total-projects">0</div>
+              <div class="stat-label">Total Projects</div>
+              <div class="stat-sub">Active projects</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon">
+                  <span class="mdi mdi-chart-bar"></span>
+                </div>
+              </div>
+              <div class="stat-value" id="stat-overall-progress">0%</div>
+              <div class="stat-label">Overall Progress</div>
+              <div class="stat-sub">across all projects</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon">
+                  <span class="mdi mdi-calendar-month-outline"></span>
+                </div>
+              </div>
+              <div class="stat-value" id="stat-upcoming">0</div>
+              <div class="stat-label">Upcoming Deadlines</div>
+              <div class="stat-sub">In the next 7 days</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon">
+                  <span class="mdi mdi-bullseye-arrow"></span>
+                </div>
+              </div>
+              <div class="stat-value" id="stat-completed-ms">0</div>
+              <div class="stat-label">Completed Milestones</div>
+              <div class="stat-sub">This month</div>
+            </div>
+          </div>
+
+          <div class="dash-grid">
+            <div class="card panel">
+              <div class="section-title-row">
+                <h3>Project Overview</h3><span class="link-small" data-nav="projects">View All</span>
+              </div>
+              <div id="dash-project-overview"></div>
+            </div>
+            <div class="card panel" style="display:flex;flex-direction:column;align-items:center;">
+              <div class="section-title-row" style="width:100%;">
+                <h3>Overall Progress</h3>
+              </div>
+              <div class="donut-wrap">
+                <svg width="150" height="150" viewBox="0 0 150 150" id="donut-svg"></svg>
+              </div>
+            </div>
+            <div class="card panel">
+              <div class="section-title-row">
+                <h3>Upcoming Deadlines</h3><span class="link-small" data-nav="calendar">View All</span>
+              </div>
+              <div id="dash-deadlines"></div>
+            </div>
+          </div>
+
+          <div class="card panel" style="margin-bottom:18px;">
+            <div class="section-title-row">
+              <h3>Recent Activity</h3><span class="link-small" id="dash-clear-activity">Clear</span>
+            </div>
+            <div id="dash-activity"></div>
+          </div>
+
+          <div class="bottom-stats">
+            <div class="bottom-stat">
+              <span class="mdi mdi-archive-star-outline"></span>
+              <div>
+                <div class="val" id="bs-projects">0</div>
+                <div class="lbl">Active Projects</div>
+              </div>
+            </div>
+            <div class="bottom-stat">
+              <div class="stat-icon"><span class="mdi mdi-bullseye-arrow"></span></div>
+              <div>
+                <div class="val" id="bs-milestones">0</div>
+                <div class="lbl">Milestones</div>
+              </div>
+            </div>
+            <div class="bottom-stat">
+              <span class="mdi mdi-file-outline"></span>
+              <div>
+                <div class="val" id="bs-files">0</div>
+                <div class="lbl">Files</div>
+              </div>
+            </div>
+            <div class="bottom-stat">
+              <span class="mdi mdi-calendar-month-outline"></span>
+              <div>
+                <div class="val" id="bs-events">0</div>
+                <div class="lbl">Upcoming Events</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ PROJECTS ============ -->
+        <section class="view" id="view-projects">
+          <div class="page-header">
+            <div>
+              <h1>Projects</h1>
+              <p>Manage and track all your projects.</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-primary" id="proj-add-btn">+ New Project</button>
+            </div>
+          </div>
+          <div class="tab-row" id="proj-tabs">
+            <button class="tab-btn active" data-filter="All">All Projects</button>
+            <button class="tab-btn" data-filter="In Progress">In Progress</button>
+            <button class="tab-btn" data-filter="Completed">Completed</button>
+            <button class="tab-btn" data-filter="Planning">Planning</button>
+            <button class="tab-btn" data-filter="Archived">Archived</button>
+          </div>
+          <div class="card">
+            <div class="table-head-row">
+              <div style="width:64px;flex-shrink:0;"></div>
+              <div class="proj-main">Project</div>
+              <div class="proj-col progress-col">Progress</div>
+              <div class="proj-col">Status</div>
+              <div class="proj-col">Priority</div>
+              <div class="proj-col">Deadline</div>
+              <div style="width:120px;">Actions</div>
+            </div>
+            <div id="projects-list"></div>
+          </div>
+          <div class="pager" id="proj-pager"></div>
+        </section>
+
+        <!-- ============ CALENDAR ============ -->
+        <section class="view" id="view-calendar">
+          <div class="page-header">
+            <div>
+              <h1>Calendar</h1>
+              <p>Manage your schedule, deadlines, and events.</p>
+            </div>
+          </div>
+          <div class="cal-wrap">
+            <div>
+              <div class="card" style="padding:20px;">
+                <div class="cal-toolbar">
+                  <button class="btn btn-icon" id="cal-prev">&#8249;</button>
+                  <button class="btn btn-icon" id="cal-next">&#8250;</button>
+                  <button class="btn" id="cal-today">Today</button>
+                  <div class="cal-title" id="cal-title">Juli 2026</div>
+                  <div class="spacer"></div>
+                  <button class="btn btn-primary" id="cal-add-btn">+ Add Event</button>
+                </div>
+                <div class="cal-grid" id="cal-grid"></div>
+              </div>
+            </div>
+            <div>
+              <div class="card panel" style="margin-bottom:18px;">
+                <div class="mini-cal-head">
+                  <button class="icon-btn" id="mini-cal-prev" style="width:28px;height:28px;">&#8249;</button>
+                  <span id="mini-cal-title">Juli 2026</span>
+                  <button class="icon-btn" id="mini-cal-next" style="width:28px;height:28px;">&#8250;</button>
+                </div>
+                <div class="mini-cal-grid" id="mini-cal-grid"></div>
+              </div>
+              <div class="card panel">
+                <div class="section-title-row">
+                  <h3>Upcoming Events</h3>
+                </div>
+                <div id="upcoming-events-list"></div>
+                <button class="btn btn-block" style="margin-top:14px;" id="cal-add-btn-2">+ Add Event</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ MILESTONES ============ -->
+        <section class="view" id="view-milestones">
+          <div class="page-header">
+            <div>
+              <h1>Milestones</h1>
+              <p>Track milestones and achieve your project goals.</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-primary" id="ms-add-btn">+ New Milestone</button>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon"><span class="mdi mdi-bullseye-arrow"></span></div>
+              </div>
+              <div class="stat-value" id="ms-stat-total">0</div>
+              <div class="stat-label">Total Milestones</div>
+              <div class="stat-sub">All project milestones</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon">
+                  <span class="mdi mdi-check"></span>
+                </div>
+              </div>
+              <div class="stat-value" id="ms-stat-completed">0</div>
+              <div class="stat-label">Completed</div>
+              <div class="stat-sub" id="ms-stat-completed-pct">0% completed</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon">
+                  <span class="mdi mdi-timer-sand"></span>
+                </div>
+              </div>
+              <div class="stat-value" id="ms-stat-progress">0</div>
+              <div class="stat-label">In Progress</div>
+              <div class="stat-sub" id="ms-stat-progress-pct">0% in progress</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon">
+                  <span class="mdi mdi-clock-outline"></span>
+                </div>
+              </div>
+              <div class="stat-value" id="ms-stat-overdue">0</div>
+              <div class="stat-label">Overdue</div>
+              <div class="stat-sub" id="ms-stat-overdue-pct">0% overdue</div>
+            </div>
+          </div>
+          <div class="tab-row" id="ms-tabs">
+            <button class="tab-btn active" data-filter="All">All Milestones</button>
+            <button class="tab-btn" data-filter="Completed">Completed</button>
+            <button class="tab-btn" data-filter="In Progress">In Progress</button>
+            <button class="tab-btn" data-filter="Overdue">Overdue</button>
+          </div>
+          <div class="card">
+            <div id="milestones-list"></div>
+          </div>
+          <div class="pager" id="ms-pager"></div>
+        </section>
+
+        <!-- ============ FILES ============ -->
+        <section class="view" id="view-files">
+          <div class="page-header">
+            <div>
+              <h1>Files</h1>
+              <p>Manage and organize all your project files.</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-primary" id="file-upload-btn"><span class="mdi mdi-upload"></span> Upload
+                File</button>
+              <input type="file" id="file-input" class="hidden" multiple>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon">
+                  <span class="mdi mdi-folder-outline"></span>
+                </div>
+              </div>
+              <div class="stat-value" id="file-stat-total">0</div>
+              <div class="stat-label">Total Files</div>
+              <div class="stat-sub">All project files</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon">
+                  <span class="mdi mdi-floppy"></span>
+                </div>
+              </div>
+              <div class="stat-value" id="file-stat-size">0 KB</div>
+              <div class="stat-label">Total Size</div>
+              <div class="stat-sub">Storage used</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon">
+                  <span class="mdi mdi-file-upload"></span>
+                </div>
+              </div>
+              <div class="stat-value" id="file-stat-uploaded">0</div>
+              <div class="stat-label">Uploaded Files</div>
+              <div class="stat-sub">This month</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon">
+                  <span class="mdi mdi-archive"></span>
+                </div>
+              </div>
+              <div class="stat-value" id="file-stat-archived">0</div>
+              <div class="stat-label">Archived Files</div>
+              <div class="stat-sub">Archived items</div>
+            </div>
+          </div>
+          <div class="tab-row" id="file-tabs">
+            <button class="tab-btn active" data-filter="All">All Files</button>
+            <button class="tab-btn" data-filter="Project">Project Files</button>
+            <button class="tab-btn" data-filter="Archived">Archived</button>
+          </div>
+          <div class="card">
+            <div id="files-list"></div>
+          </div>
+          <div class="pager" id="file-pager"></div>
+        </section>
+
+        <!-- ============ ASSETS ============ -->
+        <section class="view" id="view-assets">
+          <div class="page-header">
+            <div>
+              <h1>Assets</h1>
+              <p>Simpan ikon, gambar, dan komponen desain project anda.</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-primary" id="assets-add-btn">+ Tambah Asset</button>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon">
+                  <span class="mdi mdi-palette-outline"></span>
+                </div>
+              </div>
+              <div class="stat-value" id="assets-stat-total">0</div>
+              <div class="stat-label">Total Assets</div>
+              <div class="stat-sub">Semua aset desain</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon"><span class="mdi mdi-calendar-plus"></span></div>
+              </div>
+              <div class="stat-value" id="assets-stat-month">0</div>
+              <div class="stat-label">Ditambahkan</div>
+              <div class="stat-sub">Bulan ini</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon"><span class="mdi mdi-link-variant"></span></div>
+              </div>
+              <div class="stat-value" id="assets-stat-3">0</div>
+              <div class="stat-label">Terhubung Project</div>
+              <div class="stat-sub">Terkait project aktif</div>
+            </div>
+          </div>
+          <div class="tab-row" id="assets-tabs">
+            <button class="tab-btn active" data-filter="All">Semua</button>
+            <button class="tab-btn" data-filter="Icon">Icon</button>
+            <button class="tab-btn" data-filter="Image">Image</button>
+            <button class="tab-btn" data-filter="Illustration">Illustration</button>
+            <button class="tab-btn" data-filter="Component">Component</button>
+            <button class="tab-btn" data-filter="Font">Font</button>
+            <button class="tab-btn" data-filter="Color Palette">Color Palette</button>
+          </div>
+          <div class="card">
+            <div id="assets-list"></div>
+          </div>
+          <div class="pager" id="assets-pager"></div>
+        </section>
+
+        <!-- ============ RESOURCES ============ -->
+        <section class="view" id="view-resources">
+          <div class="page-header">
+            <div>
+              <h1>Resources</h1>
+              <p>Menyimpan referensi, tautan, tutorial, dan aset proyek.</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-primary" id="resources-add-btn">+ Tambah Resource</button>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon"><span class="mdi mdi-book-open-variant"></span></div>
+              </div>
+              <div class="stat-value" id="resources-stat-total">0</div>
+              <div class="stat-label">Total Resources</div>
+              <div class="stat-sub">Semua referensi</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon"><span class="mdi mdi-calendar-plus"></span></div>
+              </div>
+              <div class="stat-value" id="resources-stat-month">0</div>
+              <div class="stat-label">Ditambahkan</div>
+              <div class="stat-sub">Bulan ini</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon"><span class="mdi mdi-link-variant"></span></div>
+              </div>
+              <div class="stat-value" id="resources-stat-3">0</div>
+              <div class="stat-label">Terhubung Project</div>
+              <div class="stat-sub">Terkait project aktif</div>
+            </div>
+          </div>
+          <div class="tab-row" id="resources-tabs">
+            <button class="tab-btn active" data-filter="All">Semua</button>
+            <button class="tab-btn" data-filter="Tautan">Tautan</button>
+            <button class="tab-btn" data-filter="Tutorial">Tutorial</button>
+            <button class="tab-btn" data-filter="Dokumentasi">Dokumentasi</button>
+            <button class="tab-btn" data-filter="Video">Video</button>
+            <button class="tab-btn" data-filter="Artikel">Artikel</button>
+          </div>
+          <div class="card">
+            <div id="resources-list"></div>
+          </div>
+          <div class="pager" id="resources-pager"></div>
+        </section>
+
+        <!-- ============ BOOKMARKS ============ -->
+        <section class="view" id="view-bookmarks">
+          <div class="page-header">
+            <div>
+              <h1>Bookmarks</h1>
+              <p>Menyimpan proyek atau catatan penting.</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-primary" id="bookmarks-add-btn">+ Tambah Bookmark</button>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon"><span class="mdi mdi-bookmark-multiple-outline"></span></div>
+              </div>
+              <div class="stat-value" id="bookmarks-stat-total">0</div>
+              <div class="stat-label">Total Bookmarks</div>
+              <div class="stat-sub">Semua tersimpan</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon"><span class="mdi mdi-calendar-plus"></span></div>
+              </div>
+              <div class="stat-value" id="bookmarks-stat-month">0</div>
+              <div class="stat-label">Ditambahkan</div>
+              <div class="stat-sub">Bulan ini</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon"><span class="mdi mdi-folder-star-outline"></span></div>
+              </div>
+              <div class="stat-value" id="bookmarks-stat-3">0</div>
+              <div class="stat-label">Project Tersimpan</div>
+              <div class="stat-sub">Bookmark project</div>
+            </div>
+          </div>
+          <div class="tab-row" id="bookmarks-tabs">
+            <button class="tab-btn active" data-filter="All">Semua</button>
+            <button class="tab-btn" data-filter="Project">Project</button>
+            <button class="tab-btn" data-filter="Catatan Penting">Catatan Penting</button>
+          </div>
+          <div class="card">
+            <div id="bookmarks-list"></div>
+          </div>
+          <div class="pager" id="bookmarks-pager"></div>
+        </section>
+
+        <!-- ============ REPOSITORY ============ -->
+        <section class="view" id="view-repository">
+          <div class="page-header">
+            <div>
+              <h1>Repository</h1>
+              <p>Penyimpanan kode dan dokumentasi.</p>
+            </div>
+            <div class="header-actions">
+              <button class="btn btn-primary" id="repository-add-btn">+ Tambah Repository</button>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon"><span class="mdi mdi-database-outline"></span></div>
+              </div>
+              <div class="stat-value" id="repository-stat-total">0</div>
+              <div class="stat-label">Total Repository</div>
+              <div class="stat-sub">Kode &amp; dokumentasi</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon"><span class="mdi mdi-calendar-plus"></span></div>
+              </div>
+              <div class="stat-value" id="repository-stat-month">0</div>
+              <div class="stat-label">Ditambahkan</div>
+              <div class="stat-sub">Bulan ini</div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-top">
+                <div class="stat-icon"><span class="mdi mdi-link-variant"></span></div>
+              </div>
+              <div class="stat-value" id="repository-stat-3">0</div>
+              <div class="stat-label">Terhubung Project</div>
+              <div class="stat-sub">Terkait project aktif</div>
+            </div>
+          </div>
+          <div class="tab-row" id="repository-tabs">
+            <button class="tab-btn active" data-filter="All">Semua</button>
+            <button class="tab-btn" data-filter="Git Repository">Git Repository</button>
+            <button class="tab-btn" data-filter="Dokumentasi">Dokumentasi</button>
+            <button class="tab-btn" data-filter="Code Snippet">Code Snippet</button>
+            <button class="tab-btn" data-filter="Package / Library">Package / Library</button>
+          </div>
+          <div class="card">
+            <div id="repository-list"></div>
+          </div>
+          <div class="pager" id="repository-pager"></div>
+        </section>
+
+        <!-- ============ SETTINGS ============ -->
+        <section class="view" id="view-settings">
+          <div class="page-header">
+            <div>
+              <h1>Settings</h1>
+              <p>Manage your account, preferences, and application settings.</p>
+            </div>
+          </div>
+          <div class="settings-tabs" id="settings-tabs">
+            <div class="settings-tab active" data-tab="profile"><span class="mdi mdi-account"></span> Profile</div>
+            <div class="settings-tab" data-tab="password"><span class="mdi mdi-lock"></span> Security</div>
+            <div class="settings-tab" data-tab="notifications"><span class="mdi mdi-bell-ring"></span> Notifications
+            </div>
+          </div>
+
+          <!-- PROFILE TAB -->
+          <div class="settings-grid settings-tab-panel" id="tab-profile">
+            <div class="card settings-panel">
+              <h3>Profile Information</h3>
+              <p class="sub">Update your personal information and profile details.</p>
+              <label class="field-label">Profile Picture</label>
+
+              <div class="avatar-wrapper">
+                <div class="avatar-lg" id="profile-avatar-lg"></div>
+              </div>
+
+              <input type="file" id="avatar-input" accept="image/*" hidden>
+
+              <p style="font-size:12px;color:var(--text-muted);margin:0 0 10px;">
+                JPG, PNG atau GIF. Maks 2MB.
+              </p>
+
+              <button type="button" class="btn" id="avatar-upload-btn">
+                ↑ Upload Photo
+              </button>
+              <div class="form-grid-2">
+                <div class="field-group"><label class="field-label">Full Name</label><input class="input"
+                    id="set-fullname"></div>
+                <div class="field-group"><label class="field-label">Email Address</label><input class="input"
+                    id="set-email" type="email"></div>
+              </div>
+              <div class="form-grid-2">
+                <div class="field-group"><label class="field-label">Job Title</label><input class="input"
+                    id="set-jobtitle"></div>
+                <div class="field-group"><label class="field-label">Company / Organization</label><input class="input"
+                    id="set-company"></div>
+              </div>
+              <div class="field-group"><label class="field-label">Bio</label><textarea class="input"
+                  id="set-bio"></textarea></div>
+              <button class="btn btn-primary" id="save-profile-btn">Save Changes</button>
+            </div>
+            <div>
+              <div class="card settings-panel" style="margin-bottom:18px;">
+                <h3 style="display:flex;align-items:center;justify-content:space-between;">Account Status <span
+                    class="badge badge-completed">Active</span></h3>
+                <div class="info-row"><span class="k"><span class="mdi mdi-calendar-month-outline"></span> Member
+                    since</span><span id="acc-member-since">1 Jan
+                    2025</span></div>
+                <div class="info-row"><span class="k"><span class="mdi mdi-clock-outline"></span> Last login</span><span
+                    id="acc-last-login">-</span>
+                </div>
+                <div class="info-row"><span class="k"><span class="mdi mdi-account"></span> Account
+                    type</span><span id="acc-type">Premium Account</span></div>
+              </div>
+              <div class="card settings-panel" style="margin-bottom:18px;">
+                <h3>Storage Usage</h3>
+                <div class="storage-bar">
+                  <div class="storage-fill" id="storage-fill" style="width:0%;"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--text-muted);"><span
+                    id="storage-text">0 B dari 100 TB</span><span id="storage-pct">0%</span></div>
+                <button class="btn btn-block" style="margin-top:14px;" data-nav="files">Manage Storage</button>
+              </div>
+              <div class="card settings-panel">
+                <h3>Danger Zone</h3>
+                <p class="sub">Tindakan ini bersifat permanen.</p>
+                <button class="btn btn-danger btn-block" id="logout-btn">&#8617; Logout</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECURITY TAB -->
+          <div class="settings-grid settings-tab-panel hidden" id="tab-password">
+            <div class="card settings-panel">
+              <h3>Change Password</h3>
+              <p class="sub">Pastikan akun anda menggunakan password yang panjang dan acak.</p>
+              <div class="field-group"><label class="field-label">Current Password</label><input class="input"
+                  type="password" id="pw-current" placeholder="Masukkan password saat ini"></div>
+              <div class="field-group">
+                <label class="field-label">New Password</label>
+                <input class="input" type="password" id="pw-new" placeholder="Masukkan password baru">
+                <div class="pw-strength-track">
+                  <div id="pw-bar-1"></div>
+                  <div id="pw-bar-2"></div>
+                  <div id="pw-bar-3"></div>
+                  <div id="pw-bar-4"></div>
+                </div>
+
+                <div class="pw-checklist">
+                  <div class="it" id="pw-check-len">
+                    <span class="dot">
+                      <span class="mdi mdi-shield-check"></span>
+                    </span>Minimal 8 karakter
+                  </div>
+                  <div class="it" id="pw-check-num">
+                    <span class="dot">
+                      <span class="mdi mdi-shield-check"></span>
+                    </span>Mengandung angka (0-9)
+                  </div>
+                  <div class="it" id="pw-check-upper">
+                    <span class="dot">
+                      <span class="mdi mdi-shield-check"></span>
+                    </span> Mengandung huruf besar (A-Z)
+                  </div>
+                  <div class="it" id="pw-check-special">
+                    <span class="dot">
+                      <span class="mdi mdi-shield-check"></span>
+                    </span> Mengandung karakter spesial
+                  </div>
+                </div>
+
+              </div>
+              <div class="field-group"><label class="field-label">Confirm New Password</label><input class="input"
+                  type="password" id="pw-confirm" placeholder="Konfirmasi password baru"></div>
+              <button class="btn btn-primary" id="update-pw-btn">Update Password</button>
+            </div>
+
+            <div class="card settings-panel">
+              <h3>Password Tips</h3>
+              <div class="info-row tip-row">
+                <span class="mdi mdi-shield-lock"></span>
+                <span>Gunakan minimal 8 karakter</span>
+              </div>
+
+              <div class="info-row tip-row">
+                <span class="mdi mdi-shield-lock"></span>
+                <span>Kombinasikan huruf, angka, dan simbol</span>
+              </div>
+
+              <div class="info-row tip-row">
+                <span class="mdi mdi-shield-lock"></span>
+                <span>Hindari informasi pribadi</span>
+              </div>
+
+              <div class="info-row tip-row">
+                <span class="mdi mdi-shield-lock"></span>
+                <span>Jangan gunakan ulang password lama</span>
+              </div>
+
+              <div style="border-top:1px solid var(--border);padding-top:14px;">
+                <div style="font-weight:700;font-size:13.5px;margin-bottom:4px;">Last Password Change</div>
+                <div style="color:var(--text-muted);font-size:13px;" id="last-pw-change">-</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- NOTIFICATIONS TAB -->
+          <div class="settings-grid settings-tab-panel hidden" id="tab-notifications">
+            <div class="card settings-panel">
+              <h3>Notification Preferences</h3>
+              <p class="sub">Pilih bagaimana dan kapan anda ingin diberitahu.</p>
+              <label class="field-label">Notification Channels</label>
+              <div class="pref-row">
+                <div class="pref-left">
+                  <div class="pref-ic" style="background:var(--blue-soft);">&#9993;</div>
+                  <div>
+                    <div class="pref-t">Email Notifications</div>
+                    <div class="pref-s">Terima notifikasi via email</div>
+                  </div>
+                </div><label class="toggle"><input type="checkbox" id="notif-email" checked><span
+                    class="slider"></span></label>
+              </div>
+              <div class="pref-row">
+                <div class="pref-left">
+                  <div class="pref-ic" style="background:var(--purple-soft);"><span class="mdi mdi-bell-outline"></span>
+                  </div>
+                  <div>
+                    <div class="pref-t">Browser Notifications</div>
+                    <div class="pref-s" id="notif-browser-sub">Terima notifikasi di browser</div>
+                  </div>
+                </div><label class="toggle"><input type="checkbox" id="notif-browser" checked><span
+                    class="slider"></span></label>
+              </div>
+              <label class="field-label" style="margin-top:16px;">Notification Types</label>
+              <div id="notif-types-list"></div>
+              <button class="btn btn-primary" id="save-notif-btn" style="margin-top:6px;">Save Changes</button>
+            </div>
+            <div>
+              <div class="card settings-panel" style="margin-bottom:18px;">
+                <h3>Quiet Hours</h3>
+                <p class="sub">Atur rentang waktu tanpa notifikasi non-mendesak.</p>
+                <div class="form-grid-2">
+                  <div class="field-group"><label class="field-label">Start Time</label><input class="input" type="time"
+                      id="quiet-start" value="22:00"></div>
+                  <div class="field-group"><label class="field-label">End Time</label><input class="input" type="time"
+                      id="quiet-end" value="07:00"></div>
+                </div>
+                <div class="pref-row" style="margin-bottom:0;">
+                  <div class="pref-s" style="max-width:75%;">Notifikasi akan dijeda selama waktu ini.</div>
+                  <label class="toggle"><input type="checkbox" id="quiet-enabled" checked><span
+                      class="slider"></span></label>
+                </div>
+              </div>
+              <div class="notice-box">
+                <span class="mdi mdi-information-box-outline"></span>
+                <div><b>Penting:</b> Anda akan tetap menerima notifikasi penting tentang keamanan dan perubahan akun.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+      <div class="footer-app">&copy; 2026 DevNotes. All rights reserved.</div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- ============== MODAL: PROJECT ============== -->
+  <div class="modal-overlay hidden" id="modal-project">
+    <div class="modal modal-lg">
+      <div class="modal-head">
+        <h3 id="proj-modal-title">New Project</h3><button class="modal-close" data-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="field-group">
+          <label class="field-label">Design Image</label>
+          <div class="img-drop" id="proj-img-drop">
+            <div id="proj-img-preview-wrap">
+              <div style="font-size:26px;">&#128247;</div>
+              <div class="hint">Klik untuk upload gambar desain (JPG/PNG)</div>
+            </div>
+          </div>
+          <input type="file" id="proj-img-input" accept="image/*" class="hidden">
+        </div>
+        <div class="form-grid-2">
+          <div class="field-group"><label class="field-label">Project Name</label><input class="input" id="proj-name"
+              placeholder="cth. Website Redesign"></div>
+          <div class="field-group"><label class="field-label">Category</label><input class="input" id="proj-category"
+              placeholder="cth. UI/UX Design"></div>
+        </div>
+        <div class="field-group"><label class="field-label">Description</label><textarea class="input" id="proj-desc"
+            placeholder="Deskripsi singkat project..."></textarea></div>
+        <div class="form-grid-2">
+          <div class="field-group"><label class="field-label">Status</label>
+            <select class="input" id="proj-status">
+              <option>Planning</option>
+              <option>In Progress</option>
+              <option>Review</option>
+              <option>Completed</option>
+              <option>Archived</option>
+            </select>
+          </div>
+          <div class="field-group"><label class="field-label">Priority</label>
+            <select class="input" id="proj-priority">
+              <option>High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grid-2">
+          <div class="field-group"><label class="field-label">Progress (%)</label><input class="input" type="number"
+              min="0" max="100" id="proj-progress" value="0"></div>
+          <div class="field-group"><label class="field-label">Deadline</label><input class="input" type="date"
+              id="proj-deadline"></div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Catatan Fitur-Fitur</label>
+          <div class="feature-add-row">
+            <input class="input" id="proj-feature-input" placeholder="Tambah catatan fitur, mis. 'Login dengan Google'">
+            <button class="btn" id="proj-feature-add-btn" type="button">+ Add</button>
+          </div>
+          <div class="chip-list" id="proj-feature-chips"></div>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn" data-close>Cancel</button>
+        <button class="btn btn-primary" id="proj-save-btn">Save Project</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== MODAL: VAULT ITEM (Assets/Resources/Bookmarks/Repository) ============== -->
+  <div class="modal-overlay hidden" id="modal-vault">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="vault-modal-title">Tambah Item</h3><button class="modal-close" data-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="field-group" id="vault-image-group">
+          <label class="field-label">Preview Gambar</label>
+          <div class="img-drop" id="vault-img-drop">
+            <div id="vault-img-preview-wrap">
+              <div style="font-size:26px;">&#128247;</div>
+              <div class="hint">Klik untuk upload gambar (opsional)</div>
+            </div>
+          </div>
+          <input type="file" id="vault-img-input" accept="image/*" class="hidden">
+        </div>
+        <div class="field-group"><label class="field-label" id="vault-title-label">Judul</label><input class="input"
+            id="vault-title" placeholder="cth. Logo Icon Set"></div>
+        <div class="field-group"><label class="field-label">Kategori</label>
+          <select class="input" id="vault-category"></select>
+        </div>
+        <div class="field-group" id="vault-url-group"><label class="field-label">Tautan / URL</label><input
+            class="input" id="vault-url" placeholder="https://..."></div>
+        <div class="field-group" id="vault-project-group"><label class="field-label">Project Terkait
+            (opsional)</label>
+          <select class="input" id="vault-project">
+            <option value="">- Tidak ada -</option>
+          </select>
+        </div>
+        <div class="field-group"><label class="field-label">Deskripsi</label><textarea class="input" id="vault-desc"
+            placeholder="Deskripsi singkat..."></textarea></div>
+        <div class="field-group"><label class="field-label">Tags (pisahkan dengan koma)</label><input class="input"
+            id="vault-tags" placeholder="cth. ui, dashboard, dark-mode"></div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn" data-close>Cancel</button>
+        <button class="btn btn-primary" id="vault-save-btn">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== MODAL: DETAIL VAULT ITEM (read-only) ============== -->
+  <div class="modal-overlay hidden" id="modal-vault-detail">
+    <div class="modal detail-modal">
+
+      <div class="modal-head">
+        <h2 id="vaultdetail-title-head">Detail Item</h2>
+        <button class="modal-close" data-close>&times;</button>
+      </div>
+
+      <div class="modal-body">
+
+        <img id="vaultdetail-image" class="detail-image">
+
+        <h2 id="vaultdetail-title"></h2>
+
+        <p id="vaultdetail-desc"></p>
+
+        <div class="detail-grid">
+
+          <div class="detail-item">
+            <strong>Kategori</strong>
+            <span id="vaultdetail-category"></span>
+          </div>
+
+          <div class="detail-item">
+            <strong>Project Terkait</strong>
+            <span id="vaultdetail-project"></span>
+          </div>
+
+          <div class="detail-item">
+            <strong>Tags</strong>
+            <span id="vaultdetail-tags"></span>
+          </div>
+
+          <div class="detail-item">
+            <strong>Ditambahkan</strong>
+            <span id="vaultdetail-date"></span>
+          </div>
+
+        </div>
+
+        <button class="btn btn-primary btn-block hidden" id="vaultdetail-link-btn">Buka Tautan &#8599;</button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============== MODAL: MILESTONE ============== -->
+  <div class="modal-overlay hidden" id="modal-milestone">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="ms-modal-title">New Milestone</h3><button class="modal-close" data-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="field-group"><label class="field-label">Milestone Title</label><input class="input" id="ms-title"
+            placeholder="cth. UI/UX Design"></div>
+        <div class="field-group"><label class="field-label">Description</label><textarea class="input" id="ms-desc"
+            placeholder="Deskripsi milestone..."></textarea></div>
+        <div class="field-group"><label class="field-label">Project</label><select class="input"
+            id="ms-project"></select></div>
+        <div class="form-grid-2">
+          <div class="field-group"><label class="field-label">Progress (%)</label><input class="input" type="number"
+              min="0" max="100" id="ms-progress" value="0"></div>
+          <div class="field-group"><label class="field-label">Deadline</label><input class="input" type="date"
+              id="ms-deadline"></div>
+        </div>
+        <div class="field-group"><label class="field-label">Status</label>
+          <select class="input" id="ms-status">
+            <option>Pending</option>
+            <option>In Progress</option>
+            <option>Completed</option>
+            <option>Overdue</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn" data-close>Cancel</button>
+        <button class="btn btn-primary" id="ms-save-btn">Save Milestone</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== MODAL: EVENT ============== -->
+  <div class="modal-overlay hidden" id="modal-event">
+    <div class="modal">
+      <div class="modal-head">
+        <h3>Add Event</h3><button class="modal-close" data-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="field-group"><label class="field-label">Event Title</label><input class="input" id="evt-title"
+            placeholder="cth. Meeting UI/UX"></div>
+        <div class="form-grid-2">
+          <div class="field-group"><label class="field-label">Date</label><input class="input" type="date"
+              id="evt-date"></div>
+          <div class="field-group"><label class="field-label">Time</label><input class="input" type="time"
+              id="evt-time"></div>
+        </div>
+        <div class="field-group"><label class="field-label">Type</label>
+          <select class="input" id="evt-type">
+            <option value="#2563eb">Meeting</option>
+            <option value="#7c3aed">Review</option>
+            <option value="#d97706">Milestone Deadline</option>
+            <option value="#16a34a">Update</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn" data-close>Cancel</button>
+        <button class="btn btn-primary" id="evt-save-btn">Save Event</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== MODAL: FILE PREVIEW ============== -->
+  <div class="modal-overlay hidden" id="modal-filepreview">
+    <div class="modal">
+      <div class="modal-head">
+        <h3 id="fp-title">Preview</h3><button class="modal-close" data-close>&times;</button>
+      </div>
+      <div class="modal-body" id="fp-body" style="text-align:center;"></div>
+      <div class="modal-foot">
+        <button class="btn" data-close>Close</button>
+        <button class="btn btn-primary" id="fp-download-btn"><span class="mdi mdi-download"></span> Download</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== MODAL: CONFIRM ============== -->
+  <div class="modal-overlay hidden" id="modal-confirm">
+    <div class="modal" style="max-width:400px;">
+      <div class="modal-body" style="text-align:center;padding-top:30px;">
+        <div style="font-size:34px;"><span class="mdi mdi-alert"></span></div>
+        <h3 id="confirm-title" style="margin:12px 0 6px;">Hapus item ini?</h3>
+        <p style="color:var(--text-muted);font-size:13.5px;margin:0;" id="confirm-msg">Tindakan ini tidak dapat
+          dibatalkan.</p>
+      </div>
+      <div class="modal-foot" style="justify-content:center;">
+        <button class="btn" data-close>Cancel</button>
+        <button class="btn btn-danger" id="confirm-ok-btn">Ya, Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============== MODAL: DETAIL PROJECT ============== -->
+  <div class="modal-overlay hidden" id="project-detail-modal">
+    <div class="modal detail-modal">
+
+      <div class="modal-head">
+        <h2>Detail Project</h2>
+        <button class="modal-close" data-close>&times;</button>
+      </div>
+
+      <div class="modal-body">
+
+        <img id="detail-image" class="detail-image">
+
+        <h2 id="detail-name"></h2>
+
+        <p id="detail-description"></p>
+
+        <div class="detail-grid">
+
+          <div class="detail-item">
+            <strong>Status</strong>
+            <span id="detail-status"></span>
+          </div>
+
+          <div class="detail-item">
+            <strong>Priority</strong>
+            <span id="detail-priority"></span>
+          </div>
+
+          <div class="detail-item">
+            <strong>Progress</strong>
+            <span id="detail-progress"></span>
+          </div>
+
+          <div class="detail-item">
+            <strong>Deadline</strong>
+            <span id="detail-deadline"></span>
+          </div>
+
+        </div>
+
+        <h3>Fitur</h3>
+
+        <ul id="detail-features"></ul>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============== MODAL: DETAIL MILESTONE ============== -->
+  <div class="modal-overlay hidden" id="milestone-detail-modal">
+    <div class="modal detail-modal">
+
+      <div class="modal-head">
+        <h2>Detail Milestone</h2>
+        <button class="modal-close" data-close>&times;</button>
+      </div>
+
+      <div class="modal-body">
+
+        <h2 id="msdetail-title"></h2>
+
+        <p id="msdetail-desc"></p>
+
+        <div class="detail-grid">
+
+          <div class="detail-item">
+            <strong>Project</strong>
+            <span id="msdetail-project"></span>
+          </div>
+
+          <div class="detail-item">
+            <strong>Status</strong>
+            <span id="msdetail-status"></span>
+          </div>
+
+          <div class="detail-item">
+            <strong>Progress</strong>
+            <span id="msdetail-progress"></span>
+          </div>
+
+          <div class="detail-item">
+            <strong>Deadline</strong>
+            <span id="msdetail-deadline"></span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
