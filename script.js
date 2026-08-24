@@ -106,7 +106,7 @@
             fullName: "Akun Demo", email: 'demo123@gmail.com', jobTitle: 'Project Manager',
             company: 'DevNotes', bio: 'Passionate about building great products and managing projects efficiently.',
             avatar: null, memberSince: '2025-01-01', lastLogin: new Date().toISOString(),
-            accountType: 'Demo Account', password: 'demo123', lastPasswordChange: new Date().toISOString()
+            accountType: 'Free Plan', password: 'demo123', lastPasswordChange: new Date().toISOString()
         };
     }
     function defaultAppearance() {
@@ -260,18 +260,18 @@
                 memberSince: account.createdAt || todayStr()
             });
             if (isDemo) {
-                state.profile.accountType = 'Demo Account';
+                state.profile.accountType = 'Free Plan';
             } else {
                 state.profile.jobTitle = ''; state.profile.company = ''; state.profile.bio = '';
                 state.profile.avatar = account.avatar || null;
                 // Login via Google dianggap akun Premium; daftar manual (email/password) tetap Free.
-                state.profile.accountType = account.provider === 'google' ? 'Premium Account' : 'Demo Account';
+                state.profile.accountType = account.provider === 'google' ? 'Premium Plan' : 'Free Plan';
             }
             await sSet(acctKey('profile', id), state.profile);
         } else {
             // Migrasi ringan: kalau profil ini sudah pernah dibuat sebelum aturan
             // "demo = Free, Google = Premium" ada, samakan accountType-nya sekarang juga.
-            const correctType = isDemo ? 'Demo Account' : (account.provider === 'google' ? 'Premium Account' : state.profile.accountType);
+            const correctType = isDemo ? 'Free Plan' : (account.provider === 'google' ? 'Premium Plan' : state.profile.accountType);
             if (correctType && state.profile.accountType !== correctType) {
                 state.profile.accountType = correctType;
                 await sSet(acctKey('profile', id), state.profile);
@@ -308,9 +308,9 @@
         state.activity = await sGet(acctKey('activity', id), null);
         if (state.activity === null) {
             state.activity = isDemo ? [
-                { id: uid('act'), icon: '&#128196;', title: 'Anda mengupload file "UI_Design_Homepage.png"', time: Date.now() - 1000 * 60 * 2 },
-                { id: uid('act'), icon: '&#9989;', title: 'Milestone "UI/UX Design" selesai', time: Date.now() - 1000 * 60 * 60 },
-                { id: uid('act'), icon: '&#128197;', title: 'Meeting dengan Client hari ini pukul 10:00', time: Date.now() - 1000 * 60 * 60 * 3 }
+                { id: uid('act'), icon: '<span class="mdi mdi-file-upload"></span>', title: 'Anda mengupload file "UI_Design_Homepage.png"', time: Date.now() - 1000 * 60 * 2 },
+                { id: uid('act'), icon: '<span class="mdi mdi-check-circle-outline"></span>', title: 'Milestone "UI/UX Design" selesai', time: Date.now() - 1000 * 60 * 60 },
+                { id: uid('act'), icon: '<span class="mdi mdi-calendar-month-outline"></span>', title: 'Meeting dengan Client hari ini pukul 10:00', time: Date.now() - 1000 * 60 * 60 * 3 }
             ] : [];
             await sSet(acctKey('activity', id), state.activity);
         }
@@ -640,12 +640,12 @@
     }
     function pagerHTML(page, totalPages, totalItems, prefix) {
         let html = `<span class="pager-info">Showing ${totalItems ? ((page - 1) * PAGE_SIZE + 1) : 0} to ${Math.min(page * PAGE_SIZE, totalItems)} of ${totalItems}</span>`;
-        html += `<button id="${prefix}-prevbtn" ${page <= 1 ? 'disabled' : ''}>&#8249;</button>`;
+        html += `<button id="${prefix}-prevbtn" ${page <= 1 ? 'disabled' : ''}><span class="mdi mdi-chevron-left"></span></button>`;
         for (let i = 1; i <= totalPages; i++) {
             if (totalPages > 7 && (i > 2 && i < totalPages - 1 && Math.abs(i - page) > 1)) { if (i === 3 || i === totalPages - 2) html += `<span style="padding:0 4px;">…</span>`; continue; }
             html += `<button data-page="${i}" class="${i === page ? 'active' : ''}">${i}</button>`;
         }
-        html += `<button id="${prefix}-nextbtn" ${page >= totalPages ? 'disabled' : ''}>&#8250;</button>`;
+        html += `<button id="${prefix}-nextbtn" ${page >= totalPages ? 'disabled' : ''}><span class="mdi mdi-chevron-right"></span></button>`;
         return html;
     }
     function wirePager(prefix, totalPages, cb) {
@@ -717,7 +717,7 @@
             const idx = state.projects.findIndex(p => p.id === editingProjectId);
             const prevStatus = state.projects[idx].status;
             state.projects[idx] = { ...state.projects[idx], ...data };
-            addActivity('&#9998;', `Project "${esc(name)}" diperbarui`);
+            addActivity('<span class="mdi mdi-pencil"></span>', `Project "${esc(name)}" diperbarui`);
             toast('Project berhasil diperbarui');
             if (data.status !== prevStatus) {
                 if (data.status === 'Completed') {
@@ -729,7 +729,7 @@
         } else {
             const newId = uid('proj');
             state.projects.push({ id: newId, ...data });
-            addActivity('&#128193;', `Project baru "${esc(name)}" dibuat`);
+            addActivity('<span class="mdi mdi-folder-zip-outline"></span>', `Project baru "${esc(name)}" dibuat`);
             toast('Project berhasil ditambahkan');
             pushNotification('project', `Project baru "${name}" dibuat`, { refView: 'projects', refId: newId });
         }
@@ -878,7 +878,7 @@
         if (!title || !date) { toast('Judul dan tanggal wajib diisi'); return; }
         state.events.push({ id: uid('evt'), title, date, time: document.getElementById('evt-time').value, color: document.getElementById('evt-type').value });
         saveEvents();
-        addActivity('&#128197;', `Acara baru "${esc(title)}" ditambahkan`);
+        addActivity('<span class="mdi mdi-calendar-plus"></span>', `Acara baru "${esc(title)}" ditambahkan`);
         closeModal('modal-event');
         calCursor = new Date(date + 'T00:00:00');
         renderCalendar();
@@ -970,7 +970,7 @@
             const idx = state.milestones.findIndex(m => m.id === editingMsId);
             const prevStatus = state.milestones[idx].status;
             state.milestones[idx] = { ...state.milestones[idx], ...data };
-            addActivity('&#9998;', `Milestone "${esc(title)}" diperbarui`);
+            addActivity('<span class="mdi mdi-pencil"></span>', `Milestone "${esc(title)}" diperbarui`);
             toast('Milestone berhasil diperbarui');
             if (data.status === 'Completed' && prevStatus !== 'Completed') {
                 pushNotification('milestone', `Milestone "${title}" telah selesai`, { refView: 'milestones', refId: editingMsId });
@@ -978,7 +978,7 @@
         } else {
             const newId = uid('ms');
             state.milestones.push({ id: newId, ...data });
-            addActivity('&#127919;', `Milestone baru "${esc(title)}" ditambahkan`);
+            addActivity('<span class="mdi mdi-bullseye-arrow"></span>', `Milestone baru "${esc(title)}" ditambahkan`);
             toast('Milestone berhasil ditambahkan');
         }
         saveMilestones();
@@ -1074,7 +1074,7 @@
             PPTX: { ic: '<span class="mdi mdi-file-powerpoint"></span>', bg: 'var(--purple-soft)', fg: 'var(--purple)' },
             TXT: { ic: '<span class="mdi mdi-text"></span>', bg: '#f3f4f6', fg: '#4b5563' }
         };
-        return map[type] || { ic: '&#128196;', bg: '#f3f4f6', fg: '#4b5563' };
+        return map[type] || { ic: '<span class="mdi mdi-file-outline"></span>', bg: '#f3f4f6', fg: '#4b5563' };
     }
     function renderFiles() {
         document.getElementById('file-stat-total').textContent = state.files.length;
@@ -1156,7 +1156,7 @@
         if (!f) return;
         f.archived = !f.archived;
         saveFiles();
-        addActivity('&#128230;', `File "${esc(f.name)}" ${f.archived ? 'diarsipkan' : 'dipulihkan dari arsip'}`);
+        addActivity('<span class="mdi mdi-archive"></span>', `File "${esc(f.name)}" ${f.archived ? 'diarsipkan' : 'dipulihkan dari arsip'}`);
         renderFiles();
         toast(f.archived ? 'File diarsipkan' : 'File dipulihkan');
     }
@@ -1179,7 +1179,7 @@
                     archived: false, dataURL: reader.result
                 });
                 saveFiles();
-                addActivity('&#128196;', `Anda mengupload file "${esc(file.name)}"`);
+                addActivity('<span class="mdi mdi-file-upload"></span>', `Anda mengupload file "${esc(file.name)}"`);
                 pushNotification('file', `File baru "${file.name}" berhasil diupload`, { refView: 'files', refId: newId });
                 renderFiles();
                 renderDashboard();
@@ -1333,7 +1333,7 @@
     function renderAssetImagePreview() {
         const wrap = document.getElementById('vault-img-preview-wrap');
         if (assetImageData) wrap.innerHTML = `<img src="${assetImageData}"><div class="hint">Klik untuk ganti gambar</div>`;
-        else wrap.innerHTML = `<div style="font-size:26px;">&#128247;</div><div class="hint">Klik untuk upload gambar (opsional)</div>`;
+        else wrap.innerHTML = `<div style="font-size:26px;"><span class="mdi mdi-camera"></span></div><div class="hint">Klik untuk upload gambar (opsional)</div>`;
     }
     function saveAssetFromModal() {
         const title = document.getElementById('vault-title').value.trim();
@@ -1352,11 +1352,11 @@
         if (editingAssetId) {
             const idx = state.vault.findIndex(v => v.id === editingAssetId);
             state.vault[idx] = { ...state.vault[idx], ...data };
-            addActivity('&#127912;', `Asset "${esc(title)}" diperbarui`);
+            addActivity('<span class="mdi mdi-palette-outline"></span>', `Asset "${esc(title)}" diperbarui`);
             toast('Asset berhasil diperbarui');
         } else {
             state.vault.push({ id: uid('vault'), date: new Date().toISOString(), ...data });
-            addActivity('&#127912;', `Asset baru "${esc(title)}" ditambahkan`);
+            addActivity('<span class="mdi mdi-palette-outline"></span>', `Asset baru "${esc(title)}" ditambahkan`);
             toast('Asset berhasil ditambahkan');
         }
         saveVault();
@@ -1506,11 +1506,11 @@
         if (editingResourceId) {
             const idx = state.vault.findIndex(v => v.id === editingResourceId);
             state.vault[idx] = { ...state.vault[idx], ...data };
-            addActivity('&#128218;', `Resource "${esc(title)}" diperbarui`);
+            addActivity('<span class="mdi mdi-book-open-page-variant-outline"></span>', `Resource "${esc(title)}" diperbarui`);
             toast('Resource berhasil diperbarui');
         } else {
             state.vault.push({ id: uid('vault'), date: new Date().toISOString(), ...data });
-            addActivity('&#128218;', `Resource baru "${esc(title)}" ditambahkan`);
+            addActivity('<span class="mdi mdi-book-open-page-variant-outline"></span>', `Resource baru "${esc(title)}" ditambahkan`);
             toast('Resource berhasil ditambahkan');
         }
         saveVault();
@@ -1655,11 +1655,11 @@
         if (editingBookmarkId) {
             const idx = state.vault.findIndex(v => v.id === editingBookmarkId);
             state.vault[idx] = { ...state.vault[idx], ...data };
-            addActivity('&#128278;', `Bookmark "${esc(title)}" diperbarui`);
+            addActivity('<span class="mdi mdi-bookmark-multiple-outline"></span>', `Bookmark "${esc(title)}" diperbarui`);
             toast('Bookmark berhasil diperbarui');
         } else {
             state.vault.push({ id: uid('vault'), date: new Date().toISOString(), ...data });
-            addActivity('&#128278;', `Bookmark baru "${esc(title)}" ditambahkan`);
+            addActivity('<span class="mdi mdi-bookmark-multiple-outline"></span>', `Bookmark baru "${esc(title)}" ditambahkan`);
             toast('Bookmark berhasil ditambahkan');
         }
         saveVault();
@@ -1807,11 +1807,11 @@
         if (editingRepositoryId) {
             const idx = state.vault.findIndex(v => v.id === editingRepositoryId);
             state.vault[idx] = { ...state.vault[idx], ...data };
-            addActivity('&#127963;&#65039;', `Repository "${esc(title)}" diperbarui`);
+            addActivity('<span class="mdi mdi-git"></span>', `Repository "${esc(title)}" diperbarui`);
             toast('Repository berhasil diperbarui');
         } else {
             state.vault.push({ id: uid('vault'), date: new Date().toISOString(), ...data });
-            addActivity('&#127963;&#65039;', `Repository baru "${esc(title)}" ditambahkan`);
+            addActivity('<span class="mdi mdi-git"></span>', `Repository baru "${esc(title)}" ditambahkan`);
             toast('Repository berhasil ditambahkan');
         }
         saveVault();
@@ -1831,7 +1831,7 @@
             comments: { ic: '<span class="mdi mdi-comment-processing-outline"></span>', bg: 'var(--pink-soft)', fg: 'var(--pink)' },
             security: { ic: '<span class="mdi mdi-shield-lock-outline"></span>', bg: 'var(--red-soft)', fg: 'var(--red)' }
         };
-        return map[type] || { ic: '&#128276;', bg: '#f3f4f6', fg: '#4b5563' };
+        return map[type] || { ic: '<span class="mdi mdi-bell-outline"></span>', bg: '#f3f4f6', fg: '#4b5563' };
     }
     function renderNotifPanel() {
         const unread = state.notifItems.filter(n => !n.read).length;
@@ -2005,20 +2005,20 @@
         document.getElementById('set-bio').value = p.bio;
         document.getElementById('acc-member-since').textContent = fmtDate(p.memberSince);
         document.getElementById('acc-last-login').textContent = fmtDateTime(p.lastLogin);
-        document.getElementById('acc-type').textContent = p.accountType || 'Demo Account';
+        document.getElementById('acc-type').textContent = p.accountType || 'Free Plan';
         updateAvatarDisplays();
         updateStorageUsage();
     }
     function updateAvatarDisplays() {
         const p = state.profile;
-        const html = p.avatar ? `<img src="${p.avatar}">` : '&#128100;';
+        const html = p.avatar ? `<img src="${p.avatar}">` : '<span class="mdi mdi-account"></span>';
         document.getElementById('sb-avatar').innerHTML = html;
         document.getElementById('tb-avatar').innerHTML = html;
         document.getElementById('sb-username').textContent = p.fullName;
         document.getElementById('tb-username').textContent = p.fullName;
         document.getElementById('sb-userrole').textContent = p.jobTitle;
         const lg = document.getElementById('profile-avatar-lg');
-        lg.innerHTML = (p.avatar ? `<img src="${p.avatar}">` : '&#128100;') + '<div class="avatar-edit-btn" id="avatar-edit-btn">&#128247;</div>';
+        lg.innerHTML = (p.avatar ? `<img src="${p.avatar}">` : '<span class="mdi mdi-account"></span>') + '<div class="avatar-edit-btn" id="avatar-edit-btn"><span class="mdi mdi-camera"></span></div>';
         document.getElementById('avatar-edit-btn').onclick = () => document.getElementById('avatar-input').click();
     }
     function renderSettingsPassword() {
@@ -2130,19 +2130,19 @@
             const p = state.projects.find(x => x.id === id);
             state.projects = state.projects.filter(x => x.id !== id);
             saveProjects();
-            if (p) addActivity('&#128465;', `Project "${esc(p.name)}" dihapus`);
+            if (p) addActivity('<span class="mdi mdi-trash-can"></span>', `Project "${esc(p.name)}" dihapus`);
             renderProjects(); renderDashboard();
         } else if (kind === 'milestone') {
             const m = state.milestones.find(x => x.id === id);
             state.milestones = state.milestones.filter(x => x.id !== id);
             saveMilestones();
-            if (m) addActivity('&#128465;', `Milestone "${esc(m.title)}" dihapus`);
+            if (m) addActivity('<span class="mdi mdi-trash-can"></span>', `Milestone "${esc(m.title)}" dihapus`);
             renderMilestones(); renderDashboard();
         } else if (kind === 'file') {
             const f = state.files.find(x => x.id === id);
             state.files = state.files.filter(x => x.id !== id);
             saveFiles();
-            if (f) addActivity('&#128465;', `File "${esc(f.name)}" dihapus`);
+            if (f) addActivity('<span class="mdi mdi-trash-can"></span>', `File "${esc(f.name)}" dihapus`);
             renderFiles(); renderDashboard();
         } else if (kind === 'event') {
             state.events = state.events.filter(x => x.id !== id);
@@ -2159,7 +2159,7 @@
             saveVault();
             if (v) {
                 const labels = { assets: 'Asset', resources: 'Resource', bookmarks: 'Bookmark', repository: 'Repository' };
-                addActivity('&#128465;', `${labels[v.section] || 'Item'} "${esc(v.title)}" dihapus`);
+                addActivity('<span class="mdi mdi-trash-can"></span>', `${labels[v.section] || 'Item'} "${esc(v.title)}" dihapus`);
                 if (v.section === 'assets') renderAssets();
                 else if (v.section === 'resources') renderResources();
                 else if (v.section === 'bookmarks') renderBookmarks();
