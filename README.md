@@ -18,7 +18,7 @@ DevNotes telah berhasil di-deploy dan dapat diakses melalui:
 
 **🚀 ****[Kunjungi DevNotes](MASUKKAN-LINK-WEBSITE-KAMU-DI-SINI)**
 
-> Ganti https://devnotes-ashen.vercel.app/ dengan URL website DevNotes yang sudah di-deploy.
+> https://devnotes-ashen.vercel.app/ 
 
 ---
 
