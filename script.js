@@ -1212,7 +1212,7 @@
             'Illustration': { ic: '<span class="mdi mdi-panorama-variant-outline"></span>', bg: 'var(--purple-soft)', fg: 'var(--purple)' },
             'Component': { ic: '<span class="mdi mdi-puzzle-outline"></span>', bg: 'var(--orange-soft)', fg: 'var(--orange)' },
             'Font': { ic: '<span class="mdi mdi-format-font"></span>', bg: 'var(--red-soft)', fg: 'var(--red)' },
-            'Color Palette': { ic: '<span class="mdi mdi-palette-outline"></span>', bg: 'var(--blue-soft)', fg: 'var(--blue)' }
+            'Color Palette': { ic: '<span class="mdi mdi-palette-outline"></span>', bg: 'var(--pink-soft)', fg: 'var(--pink)' }
         };
         return map[category] || { ic: '<span class="mdi mdi-package-variant-closed"></span>', bg: '#f3f4f6', fg: '#4b5563' };
     }
