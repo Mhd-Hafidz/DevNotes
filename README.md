@@ -335,7 +335,7 @@ Silakan gunakan dan kembangkan project ini sesuai kebutuhan.
 
 <p align="center">
 
-Made with ❤️ by <b>Hafidz</b>
+Made with ❤️ by <b>Mhd. Hafidz Sya'bani</b>
 
 **© 2026 DevNotes. All Rights Reserved.**
 
